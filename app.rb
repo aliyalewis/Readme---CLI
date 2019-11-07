@@ -26,29 +26,28 @@ def show_books(books)
         max_list << book
     end
 
+    if max_list.length > 5
+        max_list = max_list.slice(0, 5)
+    end
 
     puts 
     puts
 
-    puts "1) #{max_list[0]["volumeInfo"]["title"]}"
-    puts "  Author: #{max_list[0]["volumeInfo"]["authors"][0]}"
-    puts "  Publisher: #{max_list[0]["volumeInfo"]["publisher"]}"
-    puts
-    puts "2) #{max_list[1]["volumeInfo"]["title"]}"
-    puts "  Author: #{max_list[1]["volumeInfo"]["authors"][0]}"
-    puts "  Publisher: #{max_list[1]["volumeInfo"]["publisher"]}"
-    puts
-    puts "3) #{max_list[2]["volumeInfo"]["title"]}" 
-    puts "  Author: #{max_list[2]["volumeInfo"]["authors"][0]}"
-    puts "  Publisher: #{max_list[2]["volumeInfo"]["publisher"]}"
-    puts
-    puts "4) #{max_list[3]["volumeInfo"]["title"]}" 
-    puts "  Author: #{max_list[3]["volumeInfo"]["authors"][0]}"
-    puts "  Publisher: #{max_list[3]["volumeInfo"]["publisher"]}"
-    puts
-    puts "5) #{max_list[4]["volumeInfo"]["title"]}"
-    puts "  Author: #{max_list[4]["volumeInfo"]["authors"][0]}"
-    puts "  Publisher: #{max_list[4]["volumeInfo"]["publisher"]}"
+    i = 1
+
+    max_list.each do |book|
+        puts "#{i}) #{book["volumeInfo"]["title"]}"
+        # puts "  Author(s): #{book["volumeInfo"]["authors"][0]}"
+        puts "Author(s):"
+        book["volumeInfo"]["authors"].each do |author|
+            puts "#{author}"
+        end
+
+        puts "  Publisher: #{book["volumeInfo"]["publisher"]}"
+        puts
+        i += 1
+    end
+   
     save_book(max_list)
 end
 
