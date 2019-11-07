@@ -7,6 +7,6 @@ task :console do
 end
 
 task :run do
-    login = UserLogin.new
-    login.run
+    books = ReadingListCLI.new
+    books.run
 end

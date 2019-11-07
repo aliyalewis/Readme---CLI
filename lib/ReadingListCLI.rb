@@ -2,16 +2,22 @@ require_relative '../config/environment'
 
 class ReadingListCLI
 
+    # def initialize(favorites)
+    #     @favorites = favorites
+    # end
+
+    def run
+        puts "Welcome to ReadMe!"
+        puts 
+        menu_options
+    end
+
 # ------------ Book Searching ------------ 
-
-    puts "Welcome to ReadMe!"
-    puts 
-
 
     def search_query
         system('clear')
         puts "Please enter a book title:"
-        user_input = gets.chomp
+        user_input = STDIN.gets.chomp()
 
         url = "https://www.googleapis.com/books/v1/volumes?q=#{user_input.gsub(" ", "+")}"
         response = RestClient.get(url)
@@ -70,8 +76,8 @@ class ReadingListCLI
         puts
         puts "If you would like to save any of these books to your reading list please select the number of the  book."
 
-        book_number = gets.chomp.to_i
-        book_number = book_number - 1
+        book_number = STDIN.gets.chomp()
+        book_number = book_number.to_i - 1
 
         while book_number != 1 && book_number != 2 && book_number != 3 && book_number != 4 && book_number != 5
             system('clear')
@@ -83,10 +89,6 @@ class ReadingListCLI
         end
 
         readinglist(max_list[book_number])
-        
-    end
-
-    def readinglist2 
         
     end
 
@@ -122,7 +124,7 @@ class ReadingListCLI
         puts
         puts prompt
 
-        menu_selection = gets.chomp
+        menu_selection = STDIN.gets.chomp()
         menu_select(menu_selection)
     end
 
