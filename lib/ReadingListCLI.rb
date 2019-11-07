@@ -2,10 +2,6 @@ require_relative '../config/environment'
 
 class ReadingListCLI
 
-    # def initialize(favorites)
-    #     @favorites = favorites
-    # end
-
     def run
         puts "Welcome to ReadMe!"
         puts 
@@ -77,7 +73,8 @@ class ReadingListCLI
         puts "If you would like to save any of these books to your reading list please select the number of the  book."
 
         book_number = STDIN.gets.chomp()
-        book_number = book_number.to_i - 1
+        book_number = book_number.to_i
+        puts "#{book_number}"
 
         while book_number != 1 && book_number != 2 && book_number != 3 && book_number != 4 && book_number != 5
             system('clear')
@@ -88,19 +85,20 @@ class ReadingListCLI
             break
         end
 
-        readinglist(max_list[book_number])
+        readinglist(max_list[book_number - 1])
         
     end
 
-    def readinglist(book_info)
+    def readinglist(book_info = {})
         system('clear')
         puts "Here's your reading list:"
         puts
 
+        # puts "#{book_info}"
         list = []
         list << book_info
 
-        if list.length === 0 || list === []
+        if book_info == {}
             empty_list
         elsif
             list.each do |book|
@@ -138,7 +136,7 @@ class ReadingListCLI
             search_query
         elsif menu_selection === "L"
             system('clear')
-            empty_list
+            # empty_list
             menu_options
         end
     end
