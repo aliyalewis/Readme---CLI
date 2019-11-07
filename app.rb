@@ -7,6 +7,7 @@ require 'pry'
 puts "Welcome to ReadMe!"
 puts 
 
+
 def search_query
     puts "Please enter a book title:"
     user_input = gets.chomp
@@ -104,10 +105,38 @@ end
 
 # ------------ Menu Options ------------ 
 
-search_query
+def menu_options
+    prompt = "Press S to search for books or L to see your reading list!"
+    puts
+    puts prompt
 
-binding.pry 
+    menu_selection = gets.chomp
+    menu_select(menu_selection)
+end
 
-0
+def menu_select(menu_selection)
+     if menu_selection != "S" && menu_selection != "L"
+        system('clear')
+        puts "Please select a valid menu option."
+        puts 
+        menu_options
+     elsif menu_selection === "S"
+        search_query
+     elsif menu_selection === "L"
+        readinglist
+    end
+
+    # if menu_selection == "S"
+    #     search_query
+    # elsif menu_selection == "L"
+    #     readinglist
+    # end
+end
+
+menu_options
+
+# binding.pry 
+
+# 0
 
 
