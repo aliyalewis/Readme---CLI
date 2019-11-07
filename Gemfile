@@ -1,0 +1,5 @@
+gem 'sinatra-activerecord'
+gem 'sqlite3'
+gem 'pry'
+gem 'rake'
+gem 'rest-client'
