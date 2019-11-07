@@ -41,9 +41,18 @@ def five_books(max_list)
     max_list.each do |book|
         puts "#{i}) #{book["volumeInfo"]["title"]}"
         puts "   Author(s):"
-        book["volumeInfo"]["authors"].each do |author|
+
+        if book["volumeInfo"]["authors"] 
+            authors = book["volumeInfo"]["authors"]
+        end
+
+        if authors === nil
+            puts "   no author(s) found"
+        elsif authors.length > 0
+            book["volumeInfo"]["authors"].each do |author|
             puts "   #{author}"
         end
+    end
 
         puts "   Publisher: #{book["volumeInfo"]["publisher"]}"
         puts
@@ -57,23 +66,33 @@ end
 
 def save_book(max_list)
     puts
-    puts "If you would like to save any of these books to your reading list
-    please select the number of the  book."
+    puts "If you would like to save any of these books to your reading list please select the number of the  book."
 
     book_number = gets.chomp.to_i
     book_number = book_number - 1
+
+    while book_number != 1 && book_number != 2 && book_number != 3 && book_number != 4 && book_number != 5
+        system('clear')
+        puts "Please select a valid number"
+        puts "----------------------------"
+        puts
+        five_books(max_list)
+        break
+    end
+
     readinglist(max_list[book_number])
     
 end
 
 def readinglist(book_info)
+    system('clear')
     puts "Here's your reading list!"
     puts
-    
+
     list = []
     list << book_info
 
-    if list.length === 9
+    if list.length === 0
         puts "Your reading list is empty!"
     end
 
