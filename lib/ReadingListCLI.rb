@@ -1,6 +1,7 @@
 require_relative '../config/environment'
 
 class ReadingListCLI
+    attr_accessor :list
 
     def run
         puts "Welcome to ReadMe!"
@@ -89,19 +90,21 @@ class ReadingListCLI
         
     end
 
-    def readinglist(book_info = {})
+    def readinglist(book_info = "undefined")
         system('clear')
         puts "Here's your reading list:"
         puts
 
         # puts "#{book_info}"
-        list = []
-        list << book_info
+        @list = []
+        # @user = User.find(@user.id)xs
 
-        if book_info == {}
+        @list << book_info
+
+        if book_info == "undefined"
             empty_list
         elsif
-            list.each do |book|
+            @list.each do |book|
                 puts "#{book["volumeInfo"]["title"]}"
             end
         end
@@ -110,8 +113,6 @@ class ReadingListCLI
     end
 
     def empty_list
-        puts "Here's your reading list:"
-        puts
         puts "Your list is empty!"
     end
 
@@ -136,8 +137,7 @@ class ReadingListCLI
             search_query
         elsif menu_selection === "L"
             system('clear')
-            # empty_list
-            menu_options
+            readinglist()
         end
     end
 
