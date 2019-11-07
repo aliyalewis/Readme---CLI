@@ -94,13 +94,15 @@ def readinglist(book_info)
 
     if list.length === 0
         puts "Your reading list is empty!"
-    end
-
-    list.each do |book|
-        puts "#{book["volumeInfo"]["title"]}"
+    elsif
+        list.each do |book|
+            puts "#{book["volumeInfo"]["title"]}"
+        end
     end
 
 end
+
+# ------------ Menu Options ------------ 
 
 search_query
 
