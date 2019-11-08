@@ -3,9 +3,9 @@ require_relative '../config/environment'
 class ReadingListCLI
     attr_accessor :list
 
-    # def initialize
-    #     @list = []
-    # end
+    def initialize
+        @list = Array.new
+    end
 
     def run
         puts "Welcome to ReadMe!"
@@ -41,7 +41,6 @@ class ReadingListCLI
         end
 
         puts
-
         five_books(max_list)
     end
 
@@ -62,12 +61,10 @@ class ReadingListCLI
                 puts "   #{author}"
             end
         end
-
             puts "   Publisher: #{book["volumeInfo"]["publisher"]}"
             puts
             i += 1
         end
-    
         save_book(max_list)
     end
 
@@ -89,9 +86,7 @@ class ReadingListCLI
             five_books(max_list)
             break
         end
-
         readinglist(max_list[book_number - 1])
-        
     end
 
     def readinglist(book_info = "undefined")
@@ -99,16 +94,14 @@ class ReadingListCLI
         puts "Here's your reading list:"
         puts
 
-        list = []
+        @list << book_info
 
-        list << book_info
+        # puts "#{book_info["volumeInfo"]["title"]}"
 
-        puts "#{book_info["volumeInfo"]["title"]}"
-
-        if list[0] == "undefined"
+        if @list[0] == "undefined"
             puts "Your list is empty!"
-        elsif list.length > 1
-            list.each do |book|
+        elsif @list
+            @list.each do |book|
                 puts "#{book["volumeInfo"]["title"]}"
             end
         end
