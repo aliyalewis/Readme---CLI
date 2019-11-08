@@ -3,6 +3,10 @@ require_relative '../config/environment'
 class ReadingListCLI
     attr_accessor :list
 
+    # def initialize
+    #     @list = []
+    # end
+
     def run
         puts "Welcome to ReadMe!"
         puts 
@@ -95,36 +99,43 @@ class ReadingListCLI
         puts "Here's your reading list:"
         puts
 
-        # puts "#{book_info}"
-        @list = []
-        # @user = User.find(@user.id)xs
+        list = []
 
-        @list << book_info
+        list << book_info
 
-        if book_info == "undefined"
-            empty_list
-        elsif
-            @list.each do |book|
+        puts "#{book_info["volumeInfo"]["title"]}"
+
+        if list[0] == "undefined"
+            puts "Your list is empty!"
+        elsif list.length > 1
+            list.each do |book|
                 puts "#{book["volumeInfo"]["title"]}"
             end
         end
-        menu_options
-
-    end
-
-    def empty_list
-        puts "Your list is empty!"
+        puts 
+        search_menu
     end
 
     # ------------ Menu Options ------------ 
 
     def menu_options
-        prompt = "Press S to search for books or L to see your reading list!"
+        prompt = "Enter S to search for books or L to see your reading list!"
         puts
         puts prompt
 
         menu_selection = STDIN.gets.chomp()
         menu_select(menu_selection)
+    end
+
+    def search_menu
+        puts 'Enter "B" to search for books:'
+        user_input = STDIN.gets.chomp()
+
+        if user_input != "B"
+            puts "Please chose a valid option."
+        elsif user_input === "B"
+            search_query
+        end
     end
 
     def menu_select(menu_selection)
