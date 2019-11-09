@@ -23,6 +23,8 @@ class ReadingListCLI
         url = "https://www.googleapis.com/books/v1/volumes?q=#{user_input.gsub(" ", "+")}"
         response = RestClient.get(url)
         json = JSON.parse(response)
+        puts "Hi: #{json["kind"]}"
+
         books = json['items']
         all_books(books)
     end
