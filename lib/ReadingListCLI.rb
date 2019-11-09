@@ -94,14 +94,14 @@ class ReadingListCLI
         puts "Here's your reading list:"
         puts
 
-        @list << book_info
+        list << book_info
 
         # puts "#{book_info["volumeInfo"]["title"]}"
 
-        if @list[0] == "undefined"
+        if list[0] == "undefined"
             puts "Your list is empty!"
-        elsif @list
-            @list.each do |book|
+        elsif list
+            list.each do |book|
                 puts "#{book["volumeInfo"]["title"]}"
             end
         end
