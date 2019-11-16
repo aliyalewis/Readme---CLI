@@ -130,6 +130,7 @@ class ReadingListCLI
 
         if user_input != "B"
             puts "Please chose a valid option."
+            search_menu  
         elsif user_input === "B"
             search_query
         end
