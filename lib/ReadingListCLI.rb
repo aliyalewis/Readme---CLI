@@ -30,7 +30,7 @@ class ReadingListCLI
     end
 
     def all_books(books)
-    system('clear')
+        system('clear')
         max_list = []
         puts "I found these books:"
 
@@ -60,13 +60,15 @@ class ReadingListCLI
                 puts "   no author(s) found"
             elsif authors.length > 0
                 book["volumeInfo"]["authors"].each do |author|
-                puts "   #{author}"
+                    puts "   #{author}"
+                end
             end
-        end
+
             puts "   Publisher: #{book["volumeInfo"]["publisher"]}"
             puts
             i += 1
         end
+
         save_book(max_list)
     end
 
@@ -88,6 +90,7 @@ class ReadingListCLI
             five_books(max_list)
             break
         end
+
         readinglist(max_list[book_number - 1])
     end
 
@@ -98,8 +101,6 @@ class ReadingListCLI
 
         list << book_info
 
-        # puts "#{book_info["volumeInfo"]["title"]}"
-
         if list[0] == "undefined"
             puts "Your list is empty!"
         elsif list
@@ -107,6 +108,7 @@ class ReadingListCLI
                 puts "#{book["volumeInfo"]["title"]}"
             end
         end
+        
         puts 
         search_menu
     end
