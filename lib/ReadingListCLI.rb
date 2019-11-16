@@ -16,7 +16,7 @@ class ReadingListCLI
 # ------------ Book Searching ------------ 
 
     def search_query
-        system('clear')
+        system("clear")
         puts "Please enter a book title:"
         user_input = STDIN.gets.chomp()
 
@@ -25,12 +25,12 @@ class ReadingListCLI
         json = JSON.parse(response)
         puts "Hi: #{json["kind"]}"
 
-        books = json['items']
+        books = json["items"]
         all_books(books)
     end
 
     def all_books(books)
-        system('clear')
+        system("clear")
         max_list = []
         puts "I found these books:"
 
@@ -50,7 +50,7 @@ class ReadingListCLI
         i = 1
         max_list.each do |book|
             puts "#{i}) #{book["volumeInfo"]["title"]}"
-            puts "   Author(s):"
+            puts '   Author(s):'
 
             if book["volumeInfo"]["authors"] 
                 authors = book["volumeInfo"]["authors"]
@@ -83,7 +83,7 @@ class ReadingListCLI
         puts "#{book_number}"
 
         while book_number != 1 && book_number != 2 && book_number != 3 && book_number != 4 && book_number != 5
-            system('clear')
+            system("clear")
             puts "Please select a valid number"
             puts "----------------------------"
             puts
@@ -95,7 +95,7 @@ class ReadingListCLI
     end
 
     def readinglist(book_info = "undefined")
-        system('clear')
+        system("clear")
         puts "Here's your reading list:"
         puts
 
@@ -108,7 +108,7 @@ class ReadingListCLI
                 puts "#{book["volumeInfo"]["title"]}"
             end
         end
-        
+
         puts 
         search_menu
     end
@@ -137,14 +137,14 @@ class ReadingListCLI
 
     def menu_select(menu_selection)
         if menu_selection != "S" && menu_selection != "L"
-            system('clear')
+            system("clear")
             puts "Please select a valid menu option."
             puts 
             menu_options
         elsif menu_selection === "S"
             search_query
         elsif menu_selection === "L"
-            system('clear')
+            system("clear")
             readinglist()
         end
     end
