@@ -1,4 +1,4 @@
-require_relative '../config/environment'
+require_relative "../config/environment"
 
 class ReadingListCLI
     attr_accessor :list
@@ -130,7 +130,7 @@ class ReadingListCLI
 
         if user_input != "B"
             puts "Please chose a valid option."
-            search_menu  
+            search_menu 
         elsif user_input === "B"
             search_query
         end
