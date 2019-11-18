@@ -13,4 +13,5 @@ group :test do
     gem 'rspec-expectations'
     gem 'rspec'
     gem 'sinatra-activerecord'
+    gem 'rest-client'
 end
