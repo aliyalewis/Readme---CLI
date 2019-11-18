@@ -3,6 +3,8 @@ group :development do
     gem 'sqlite3'
     gem 'rake'
     gem 'rest-client'
+    gem 'rspec-expectations'
+    gem 'rspec'
 end
 
 group :test do 
@@ -10,4 +12,5 @@ group :test do
     gem 'pry'
     gem 'rspec-expectations'
     gem 'rspec'
+    gem 'sinatra-activerecord'
 end

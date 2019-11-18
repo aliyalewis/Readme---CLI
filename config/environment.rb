@@ -1,4 +1,5 @@
 require 'bundler'
+require 'active_record'
 Bundler.require
 
 require_relative '../lib/ReadingListCLI.rb'

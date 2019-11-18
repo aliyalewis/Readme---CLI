@@ -15,6 +15,7 @@ class ReadingListCLI
 
 # ------------ Book Searching ------------ 
 
+
     def search_query
         system("clear")
         puts "Please enter a book title:"
