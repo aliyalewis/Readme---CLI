@@ -1,4 +1,5 @@
 require_relative "../config/environment"
+require 'rest-client'
 
 class ReadingListCLI
     attr_accessor :list
@@ -11,44 +12,52 @@ class ReadingListCLI
         puts "Welcome to ReadMe!"
         puts 
         menu_options
+        get_input
+        readinglist
+        save_book
+        readinglist
+        search_menu
     end
 
 # ------------ Book Searching ------------ 
 
+    def get_input
+        @user_input = STDIN.gets.chomp()
+    end
+
+
     def search_query
         system("clear")
         puts "Please enter a book title:"
-        user_input = STDIN.gets.chomp()
+        get_input
 
-        url = "https://www.googleapis.com/books/v1/volumes?q=#{user_input.gsub(" ", "+")}"
+        url = "https://www.googleapis.com/books/v1/volumes?q=#{@user_input.gsub(" ", "+")}"
         response = RestClient.get(url)
         json = JSON.parse(response)
-        puts "Hi: #{json["kind"]}"
-
-        books = json["items"]
-        all_books(books)
+        @books = json["items"]
+        all_books(@books)   
     end
 
     def all_books(books)
         system("clear")
-        max_list = []
+        @max_list = []
         puts "I found these books:"
 
         books.each do |book|
-            max_list << book
+            @max_list << book
         end
 
-        if max_list.length > 5
-            max_list = max_list.slice(0, 5)
+        if @max_list.length > 5
+            @max_list = @max_list.slice(0, 5)
         end
 
         puts
-        five_books(max_list)
+        five_books(@max_list)
     end
 
-    def five_books(max_list)
+    def five_books(list)
         i = 1
-        max_list.each do |book|
+        list.each do |book|
             puts "#{i}) #{book["volumeInfo"]["title"]}"
             puts '   Author(s):'
 
@@ -69,43 +78,40 @@ class ReadingListCLI
             i += 1
         end
 
-        save_book(max_list)
+        readinglist(list)
     end
 
     # ------------ Reading List ------------ 
 
-    def save_book(max_list)
+    def save_book
         puts
         puts "If you would like to save any of these books to your reading list please select the number of the  book."
+        get_input
+        @book_number = @user_input.to_i
 
-        book_number = STDIN.gets.chomp()
-        book_number = book_number.to_i
-        puts "#{book_number}"
-
-        while book_number != 1 && book_number != 2 && book_number != 3 && book_number != 4 && book_number != 5
+        while @book_number != 1 && @book_number != 2 && @book_number != 3 && @book_number != 4 && @book_number != 5
             system("clear")
             puts "Please select a valid number"
             puts "----------------------------"
             puts
-            five_books(max_list)
             break
         end
 
-        readinglist(max_list[book_number - 1])
     end
 
     def readinglist(book_info = "undefined")
+        save_book
         system("clear")
+        list
+        list << book_info[@book_number - 1]["volumeInfo"]["title"]
         puts "Here's your reading list:"
         puts
 
-        list << book_info
-
-        if list[0] == "undefined"
+        if list.length == 0
             puts "Your list is empty!"
         elsif list
             list.each do |book|
-                puts "#{book["volumeInfo"]["title"]}"
+                puts "#{book}"
             end
         end
 
@@ -119,14 +125,16 @@ class ReadingListCLI
         prompt = "Enter S to search for books or L to see your reading list!"
         puts
         puts prompt
+        get_input
 
-        menu_selection = STDIN.gets.chomp()
+        menu_selection = @user_input
         menu_select(menu_selection)
     end
 
     def search_menu
         puts 'Enter "B" to search for books:'
-        user_input = STDIN.gets.chomp()
+        get_input
+        user_input = @user_input
 
         if user_input != "B"
             puts "Please chose a valid option."
