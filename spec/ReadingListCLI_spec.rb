@@ -1,6 +1,4 @@
-require_relative "../config/environment"
-require 'rest-client'
-
+# require '../lib/ReadingListCLI.rb'
 class ReadingListCLI
     attr_accessor :list, :books
 
@@ -161,4 +159,31 @@ class ReadingListCLI
         end
     end
 
+end
+
+
+
+
+RSpec.describe ReadingListCLI do 
+    context 'Book Searching Section' do
+        it '#all_books returns all book search results' do 
+            book1 = double('book')
+            book2 = double('book')
+            book3 = double('book')
+            book4 = double('book')
+            book5 = double('book')
+            book6 = double('book')
+
+            allow(book1).to receive(:title) {'Where the Red Fern Grows'}
+            allow(book2).to receive(:title) {'Gone Girl'}
+            allow(book3).to receive(:title) {'Born a Crime'}
+            allow(book4).to receive(:title) {'Brotopia'}
+            allow(book5).to receive(:title) {'American Gods'}
+            allow(book6).to receive(:title) {'Peter Pan'}
+
+            @max_list = [book1, book2, book3, book4, book5, book6]
+            results = @max_list
+            expect(results.length).to be 6
+        end
+    end
 end
