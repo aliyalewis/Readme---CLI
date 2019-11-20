@@ -1,6 +1,5 @@
-require_relative "../config/environment"
-require 'rest-client'
-require 'pry'
+# require 'json'
+# require 'rest-client'
 
 class ReadingListCLI
     attr_accessor :list
@@ -164,6 +163,45 @@ class ReadingListCLI
         elsif menu_selection === "L"
             system("clear")
             readinglist()
+        end
+    end
+
+end
+
+RSpec.describe "ReadingListCLI" do
+
+    context "#all_books" do
+        it "should return an array with 5 books" do
+            rl = ReadingListCLI.new
+
+            book1 = double('book')
+            book2 = double('book')
+            book3 = double('book')
+            book4 = double('book')
+            book5 = double('book')
+            book6 = double('book')
+
+            allow(book1).to receive(:title) {'Where the Red Fern Grows'}
+            allow(book2).to receive(:title) {'Gone Girl'}
+            allow(book3).to receive(:title) {'Born a Crime'}
+            allow(book4).to receive(:title) {'Brotopia'}
+            allow(book5).to receive(:title) {'American Gods'}
+            allow(book6).to receive(:title) {'Peter Pan'}
+        
+            books = [book1, book2, book3, book4, book5, book6]
+            results = rl.all_books(books)
+            expect(results.length). to eq 5
+        end
+    end
+
+    context "#save_book" do
+        it "checks that user input is valid" do
+            rl = ReadingListCLI.new 
+
+            number = rl.save_book
+            allow($stdin).to receive(:gets).and_return(3)
+            # numbers = $STDIN.gets 
+            expect(number).to eq(3)
         end
     end
 
