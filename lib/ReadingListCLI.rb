@@ -1,11 +1,14 @@
 require_relative "../config/environment"
 require 'rest-client'
+require 'pry'
 
 class ReadingListCLI
     attr_accessor :list
 
     def initialize
         @list = Array.new
+        @max_list = Array.new
+        @booklist = Array.new
     end
 
     def run
@@ -13,9 +16,12 @@ class ReadingListCLI
         puts 
         menu_options
         get_input
-        readinglist
-        save_book
-        readinglist
+        search_query
+        results = search_query
+        short_list = all_books(results)
+        save = five_books(short_list)
+        number = save_book
+        readinglist(save)
         search_menu
     end
 
@@ -24,7 +30,6 @@ class ReadingListCLI
     def get_input
         @user_input = STDIN.gets.chomp()
     end
-
 
     def search_query
         system("clear")
@@ -35,12 +40,12 @@ class ReadingListCLI
         response = RestClient.get(url)
         json = JSON.parse(response)
         @books = json["items"]
-        all_books(@books)   
+        return @books
     end
 
     def all_books(books)
         system("clear")
-        @max_list = []
+        @max_list
         puts "I found these books:"
 
         books.each do |book|
@@ -51,13 +56,14 @@ class ReadingListCLI
             @max_list = @max_list.slice(0, 5)
         end
 
-        puts
-        five_books(@max_list)
+        return @max_list
     end
 
     def five_books(list)
+        @list = list
+
         i = 1
-        list.each do |book|
+        @list.each do |book|
             puts "#{i}) #{book["volumeInfo"]["title"]}"
             puts '   Author(s):'
 
@@ -78,7 +84,7 @@ class ReadingListCLI
             i += 1
         end
 
-        readinglist(list)
+        return @list
     end
 
     # ------------ Reading List ------------ 
@@ -97,26 +103,30 @@ class ReadingListCLI
             break
         end
 
+        return @book_number
+
     end
 
-    def readinglist(book_info = "undefined")
-        save_book
+    def readinglist(*book_info)
+
         system("clear")
-        list
-        list << book_info[@book_number - 1]["volumeInfo"]["title"]
-        puts "Here's your reading list:"
-        puts
+        @booklist
 
-        if list.length == 0
+        if !book_info || !@book_number   
             puts "Your list is empty!"
-        elsif list
-            list.each do |book|
-                puts "#{book}"
-            end
-        end
+            search_menu 
+        elsif
+            puts "#{book_info[0][@book_number - 1]["volumeInfo"]["title"]}"
+            @booklist << book_info[@book_number - 1]["volumeInfo"]["title"]
+            puts "Here's your reading list:"
 
-        puts 
-        search_menu
+            @booklist.each do |book|
+                puts "#{book["volumeInfo"]["title"]}"
+            end
+
+            puts 
+            search_menu
+        end
     end
 
     # ------------ Menu Options ------------ 
