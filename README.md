@@ -20,6 +20,8 @@
 
 As of the latest version of this app, if a user goes to check their reading list before a book has been added, the action will result in the app crashing or #save_book will run and then the app will crash.
 
+Was unsure of how to get the ReadingListCLI_spec.rb to read the correct file so I copied over the contents ReadingListCLI.rb in the same folder to run the tests against.
+
 When running the tests, the user must type in the number 3 in order for the test to pass.
 
 There is also no way to exit the application outside of using `ctrl c` to end the program.
