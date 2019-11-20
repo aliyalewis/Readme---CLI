@@ -1,5 +1,5 @@
 # require 'json'
-# require 'rest-client'
+require 'rest-client'
 
 class ReadingListCLI
     attr_accessor :list
@@ -199,6 +199,14 @@ RSpec.describe 'ReadingListCLI' do
             number = rl.save_book
             allow($stdin).to receive(:gets).and_return(3)
             expect(number).to eq(3)
+        end
+    end
+
+    context '#run' do 
+        it 'calls #menu_options' do
+            rl = ReadingListCLI.new
+            expect(rl).to receive(:run)
+            rl.run
         end
     end
 end
