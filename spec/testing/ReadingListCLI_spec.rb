@@ -1,4 +1,3 @@
-# require 'json'
 require 'rest-client'
 
 class ReadingListCLI
@@ -15,7 +14,6 @@ class ReadingListCLI
         puts 
         menu_options
         get_input
-        # search_query
         results = search_query
         short_list = all_books(results)
         save = five_books(short_list)
@@ -113,7 +111,9 @@ class ReadingListCLI
             search_menu 
         elsif
             puts "#{book_info[0][@book_number - 1]["volumeInfo"]["title"]}"
+            
             @booklist << book_info[@book_number - 1]["volumeInfo"]["title"]
+            
             puts "Here's your reading list:"
 
             @booklist.each do |book|
@@ -132,7 +132,6 @@ class ReadingListCLI
         puts
         puts prompt
         get_input
-
         menu_selection = @user_input
         menu_select(menu_selection)
     end
