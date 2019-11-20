@@ -58,6 +58,7 @@ class ReadingListCLI
 
     def five_books(list)
         i = 1
+
         list.each do |book|
             puts "#{i}) #{book["volumeInfo"]["title"]}"
             puts '   Author(s):'
@@ -155,5 +156,4 @@ class ReadingListCLI
             readinglist()
         end
     end
-
 end

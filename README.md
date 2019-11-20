@@ -7,7 +7,7 @@
 
 ## How to Run the Test
 
-1. Type `rspec spec/testing/mytest_spec.rb` into the command prompt or terminal.
+1. Type `rspec spec/testing/ReadingListCLI_spec.rb` into the command prompt or terminal.
 
 ## Technologies
 
@@ -18,7 +18,9 @@
 
 ## Issues
 
-As of this version of the app, if a user checks their reading list before a book has been added, the reading list will remain empty even after a user searches and adds a new book to the list. 
+As of the latest version of this app, if a user goes to check their reading list before a book has been added, the action will result in the app crashing.
+
+When running the tests, the user must type in the number 3 in order for the test to pass.
 
 There is also no way to exit the application outside of using `ctrl c` to end the program.
 
