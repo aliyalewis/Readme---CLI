@@ -11,7 +11,7 @@ class ReadingListCLI
     end
 
     def run
-        puts "Welcome to ReadMe!"
+        puts 'Welcome to ReadMe!'
         puts 
         menu_options
         get_input
@@ -31,8 +31,8 @@ class ReadingListCLI
     end
 
     def search_query
-        system("clear")
-        puts "Please enter a book title:"
+        system('clear')
+        puts 'Please enter a book title:'
         get_input
 
         url = "https://www.googleapis.com/books/v1/volumes?q=#{@user_input.gsub(" ", "+")}"
@@ -45,7 +45,7 @@ class ReadingListCLI
     def all_books(books)
         system("clear")
         @max_list
-        puts "I found these books:"
+        puts 'I found these books:'
 
         books.each do |book|
             @max_list << book
@@ -60,8 +60,8 @@ class ReadingListCLI
 
     def five_books(list)
         @list = list
-
         i = 1
+
         @list.each do |book|
             puts "#{i}) #{book["volumeInfo"]["title"]}"
             puts '   Author(s):'
@@ -71,7 +71,7 @@ class ReadingListCLI
             end
 
             if authors === nil
-                puts "   no author(s) found"
+                puts '   no author(s) found'
             elsif authors.length > 0
                 book["volumeInfo"]["authors"].each do |author|
                     puts "   #{author}"
@@ -89,29 +89,27 @@ class ReadingListCLI
 
     def save_book
         puts
-        puts "If you would like to save any of these books to your reading list please select the number of the  book."
+        puts 'If you would like to save any of these books to your reading list please select the number of the  book.'
         get_input
         @book_number = @user_input.to_i
 
         while @book_number != 1 && @book_number != 2 && @book_number != 3 && @book_number != 4 && @book_number != 5
-            system("clear")
-            puts "Please select a valid number"
-            puts "----------------------------"
+            system('clear')
+            puts 'Please select a valid number'
+            puts '----------------------------'
             puts
             break
         end
 
         return @book_number
-
     end
 
     def readinglist(*book_info)
-
-        system("clear")
+        system('clear')
         @booklist
 
         if !book_info || !@book_number   
-            puts "Your list is empty!"
+            puts 'Your list is empty!'
             search_menu 
         elsif
             puts "#{book_info[0][@book_number - 1]["volumeInfo"]["title"]}"
@@ -130,7 +128,7 @@ class ReadingListCLI
     # ------------ Menu Options ------------ 
 
     def menu_options
-        prompt = "Enter S to search for books or L to see your reading list!"
+        prompt = 'Enter S to search for books or L to see your reading list!'
         puts
         puts prompt
         get_input
@@ -140,38 +138,38 @@ class ReadingListCLI
     end
 
     def search_menu
-        puts 'Enter "B" to search for books:'
+        puts 'Enter B to search for books:'
         get_input
         user_input = @user_input
 
-        if user_input != "B"
-            puts "Please chose a valid option."
+        if user_input != 'B'
+            puts 'Please chose a valid option.'
             search_menu 
-        elsif user_input === "B"
+        elsif user_input === 'B'
             search_query
         end
     end
 
     def menu_select(menu_selection)
-        if menu_selection != "S" && menu_selection != "L"
-            system("clear")
-            puts "Please select a valid menu option."
+        if menu_selection != 'S' && menu_selection != 'L'
+            system('clear')
+            puts 'Please select a valid menu option.'
             puts 
             menu_options
-        elsif menu_selection === "S"
+        elsif menu_selection === 'S'
             search_query
-        elsif menu_selection === "L"
-            system("clear")
+        elsif menu_selection === 'L'
+            system('clear')
             readinglist()
         end
     end
 
 end
 
-RSpec.describe "ReadingListCLI" do
+RSpec.describe 'ReadingListCLI' do
 
-    context "#all_books" do
-        it "should return an array with 5 books" do
+    context '#all_books' do
+        it 'should return an array with 5 books' do
             rl = ReadingListCLI.new
 
             book1 = double('book')
@@ -194,15 +192,13 @@ RSpec.describe "ReadingListCLI" do
         end
     end
 
-    context "#save_book" do
-        it "checks that user input is valid" do
+    context '#save_book' do
+        it 'checks that user input is valid' do
             rl = ReadingListCLI.new 
 
             number = rl.save_book
             allow($stdin).to receive(:gets).and_return(3)
-            # numbers = $STDIN.gets 
             expect(number).to eq(3)
         end
     end
-
 end
